@@ -8,6 +8,18 @@ class CPU:
     def __init__(self):
         """Construct a new CPU."""
         pass
+        ## Step 1: Add the constructor to `cpu.py`
+        # Add list properties to the `CPU` class to hold 256 bytes of memory and 8
+        # general-purpose registers.
+        self.reg = [0] * 8
+        self.ram = self.reg * 32  #  ???
+
+        # Internal Registers
+        self.pc = 'PC'
+        self.ir = 'IR'
+        self.mar = 'MAR'
+        self.mdr = 'MDR'
+        self.fl = 'FL'
 
     def load(self):
         """Load a program into memory."""
@@ -18,7 +30,7 @@ class CPU:
 
         program = [
             # From print8.ls8
-            0b10000010, # LDI R0,8
+            0b10000010, # LDI R0,8     
             0b00000000,
             0b00001000,
             0b01000111, # PRN R0

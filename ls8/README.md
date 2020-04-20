@@ -19,13 +19,13 @@ then prints it out:
 
 ```
 # print8.ls8: Print the number 8 on the screen
-
-10000010 # LDI R0,8
-00000000
-00001000
-01000111 # PRN R0
-00000000
-00000001 # HLT
+    ##* == Steve Rollins notes
+10000010 # LDI R0,8           ##* this is equal to 130 dec...?  LDI opcode 130?
+00000000                      ##* this is equal to 0 dec...?    R0 opcode argument 0?
+00001000                      ##* this is equal to 8 dec...?    value 8?
+01000111 # PRN R0             ##* this is equal to 71 dec...?   PRN opcode 71?
+00000000                      ##* this is equal to 0 dec...?    R0 opcode argument 0?
+00000001 # HLT                ##* this is equal to 1 dec...?    HLT opcode argument 1?
 ```
 
 The binary numeric value on the left in the `print8.ls8` code above is either:
@@ -61,6 +61,24 @@ but you'll have to implement those three above instructions first!
 
 * Make a list of files here.
 * Write a short 3-10-word description of what each file does.
+  ##* ls8 directory - contains the below dir/files
+    ##* examples directory - contains the ls8 programs
+      ##* call.ls8 - 
+      ##* interrupts.ls8 - 
+      ##* keyboard.ls8 - processes keyboard entry
+      ##* mult.ls8 - 
+      ##* print8.ls8 - prints 8
+      ##* printstr.ls8 - prints string
+      ##* sctest.ls8
+      ##* stack.ls8
+      ##* stackoverflow.ls8
+    ##* cpu.py - program that runs programs
+    ##* ls8.py - executes/runs the cpu program
+    ##* Readme.md - this file; LS8 emulator instruction
+  ##* FAQ.md - frequently asked questions. provides clarity?
+  ##* LS8-cheatsheet.md - cheatsheet?
+  ##* LS8-spec.md - Overall specifications for the LS8 Emulator Program.
+  ##* README.md - project weekly outline and daily milestones.
 * Note what has been implemented, and what hasn't.
 * Read this whole file.
 * Skim the spec.
