@@ -1,25 +1,52 @@
 # Write a program in Python that runs programs.
 
+import sys
+
+# CLI TO RUN THIS FILE - `python3 guidedproject.py <nameoftextfilewithinstructions>`.  in this sample case, `python3 guidedproject.py printbeej.txt`
+
+# parse the command line
+print(sys.argv)
+program_filename = sys.argv[1]
+print(program_filename)
+
 PRINT_BEEJ = 1
 HALT = 2
 SAVE_REGISTER = 3 # Store a value in a register (in the LS8 called LDI)
 PRINT_REGISTER = 4 # Corresponds to PRN in the LS8
 
 # STORE INSTRUCTIONS IN LIST
-memory = [
-    PRINT_BEEJ,
-    SAVE_REGISTER,  # Save R0,37     # Store 37 in R0    # this is the OP Code
-    0, #R0      # This is the ("argument")
-    37, #37     # This is the Operand
-    PRINT_BEEJ,
+# memory = [
+#     PRINT_BEEJ,
+#     SAVE_REGISTER,  # Save R0,37     # Store 37 in R0    # this is the OP Code
+#     0, #R0      # This is the ("argument")
+#     37, #37     # This is the Operand
+#     PRINT_BEEJ,
 
-    PRINT_REGISTER,  # PRINT_REGISTER R0
-    0, #R0  
+#     PRINT_REGISTER,  # PRINT_REGISTER R0
+#     0, #R0  
 
-    HALT
-]
+#     HALT
+# ]
+memory = [0] * 256
 
 register = [0] * 8 # like variables limited to R0-R7(8 total registers); aka variables at our disposal.  Is based on the computer spec.  If computer only has 8 registers, you can only make a register array with 8...
+
+# load program into memory
+address = 0
+with open(program_filename) as f:   
+    for line in f:
+        line = line.split('#')
+        line = line[0].strip()
+
+        if line == '':
+            continue
+        # print(line, end="")
+        memory[address] = int(line)
+
+        address +=1
+
+# sys.exit()  
+
 
 pc = 0 # PROGRAM COUNTER, the address of the current instruction
 running = True
