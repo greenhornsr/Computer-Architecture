@@ -43,15 +43,8 @@ class CPU:
     def ram_write(self, MAR, MDR):
         self.ram[MAR] = MDR
 
-    def load(self):
+    def load(self, program_file):
         """Load a program into memory."""
-
-        # argv_program_counter = 1  # for all file implementation
-
-        # Parse the CLI
-        # program_file_test = sys.argv
-        program_file = sys.argv[1]
-
         address = 0
 
         with open(program_file) as pf:

@@ -7,5 +7,9 @@ from cpu import *
 
 cpu = CPU()
 
-cpu.load()
+# Program file from parsing CLI
+# argv_program_counter = 1  # for all file implementation
+program = sys.argv[1]
+
+cpu.load(program)
 cpu.run()
