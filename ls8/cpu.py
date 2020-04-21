@@ -65,7 +65,6 @@ class CPU:
             address += 1
 
 
-
     def alu(self, op, reg_a, reg_b):
         """ALU operations."""
 
@@ -99,7 +98,7 @@ class CPU:
         """Run the CPU."""
 
         running = True
-
+        
         while running: 
             # self.trace()
             self.ir = self.ram_read(self.pc)  # address 0
@@ -123,7 +122,7 @@ class CPU:
 
             #PRN
             elif bin(self.ir) == bin(0b01000111):
-                print("Register[0]!!!: ", self.reg[0])
+                print("Register[0]!!!: ", self.reg[operand_a])
                 self.pc += 2
             
             # HLT
