@@ -62,7 +62,7 @@ but you'll have to implement those three above instructions first!
 * Make a list of files here.
 * Write a short 3-10-word description of what each file does.
   ##* ls8 directory - contains the below dir/files
-    ##* examples directory - contains the ls8 programs
+    ##* examples directory - Programs to be run by the emulator, print8.ls8 is the first one we use.
       ##* call.ls8 - 
       ##* interrupts.ls8 - 
       ##* keyboard.ls8 - processes keyboard entry
