@@ -129,7 +129,7 @@ class CPU:
             elif bin(self.ir) == bin(0b00000001):
                 print("EXITING!")
                 running = False
-                exit()
+                # exit()
 
             else: 
                 print("Unknown Instruction")
