@@ -13,8 +13,8 @@ cpu = CPU()
 # print(len(sys.argv))
 if len(sys.argv) > 1:
     program = sys.argv[1]
-    
+
     cpu.load(program)
     cpu.run()
 else: 
-    print("Must pass a program argument to load() method.")
+    sys.exit("Must pass a program argument to load() method.")
