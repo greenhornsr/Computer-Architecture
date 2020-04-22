@@ -3,10 +3,7 @@
 import sys
 
 
-OP_LDI = 0b10000010
-OP_PRN = 0b01000111
-OP_MUL = 0b10100010
-OP_HLT = 0b00000001
+
 
 class CPU:
     """Main CPU class."""
@@ -21,12 +18,16 @@ class CPU:
         # Internal Registers
         self.pc = 0  ##* Program Counter, address of the currently executing instruction.  what do i initialize this to? 
         self.ir = self.ram[self.pc]  ##* Instruction Register, contains a copy of the currently executing instruction
+        self.OP_LDI = 0b10000010
+        self.OP_PRN = 0b01000111
+        self.OP_MUL = 0b10100010
+        self.OP_HLT = 0b00000001
         # Dispatch Table - Beautifying RUN:
         self.dispatchtable = {}
-        self.dispatchtable[OP_LDI] = self.handle_LDI
-        self.dispatchtable[OP_PRN] = self.handle_PRN
-        self.dispatchtable[OP_MUL] = self.handle_MUL
-        self.dispatchtable[OP_HLT] = self.handle_HLT
+        self.dispatchtable[self.OP_LDI] = self.handle_LDI
+        self.dispatchtable[self.OP_PRN] = self.handle_PRN
+        self.dispatchtable[self.OP_MUL] = self.handle_MUL
+        self.dispatchtable[self.OP_HLT] = self.handle_HLT
 
     # In `CPU`, add method `ram_read()` and `ram_write()` that access the RAM inside
     # the `CPU` object.
@@ -155,20 +156,20 @@ class CPU:
 
 
             # LDI
-            if self.ir == OP_LDI:
+            if self.ir == self.OP_LDI:
                 self.dispatchtable[self.ir](len_instruct, operand_a, operand_b)
 
             #PRN
-            elif self.ir == OP_PRN:
-                self.dispatchtable[OP_PRN](len_instruct, operand_a)
+            elif self.ir == self.OP_PRN:
+                self.dispatchtable[self.ir](len_instruct, operand_a)
             
             #MUL
-            elif self.ir == OP_MUL:
+            elif self.ir == self.OP_MUL:
                 self.dispatchtable[self.ir](len_instruct,operand_a, operand_b)
 
             # HLT
-            elif self.ir == OP_HLT:
-                self.dispatchtable[OP_HLT]()
+            elif self.ir == self.OP_HLT:
+                self.dispatchtable[self.ir]()
 
             else: 
                 print("Unknown Instruction")
