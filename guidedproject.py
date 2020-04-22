@@ -13,6 +13,7 @@ PRINT_BEEJ = 1
 HALT = 2
 SAVE_REGISTER = 3 # Store a value in a register (in the LS8 called LDI)
 PRINT_REGISTER = 4 # Corresponds to PRN in the LS8
+PUSH = 5
 
 # STORE INSTRUCTIONS IN LIST
 # memory = [
@@ -30,6 +31,10 @@ PRINT_REGISTER = 4 # Corresponds to PRN in the LS8
 memory = [0] * 256
 
 register = [0] * 8 # like variables limited to R0-R7(8 total registers); aka variables at our disposal.  Is based on the computer spec.  If computer only has 8 registers, you can only make a register array with 8...
+
+# Register[7] is our Stack Pointer (SP)
+SP = 7
+register[SP] = 0xF4
 
 # load program into memory
 address = 0
@@ -68,6 +73,18 @@ while running:
         reg_num = memory[pc+1]
         value = register[reg_num]
         print(value)
+        pc+=2
+
+    elif inst == PUSH:
+        #decrement the Stack Pointer(SP)
+        register[SP] -=1
+        # copy value from register into memory
+        reg_num = memory[pc+1]
+        value = register[reg_num]  # this is what we want to push
+        # reassign address to be the value in register 7(which is our Stack Pointer)
+        address = register[SP]
+        memory[address] = value
+
         pc+=2
 
     elif inst == HALT:
