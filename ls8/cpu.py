@@ -144,20 +144,6 @@ class CPU:
         self.pc += increment
 
 
-    # register
-    [
-        # pop direction
-        # assign register[0-2] to be equal to memory[memoryindexinhex] 
-    ]
-
-    # Memory  
-    [   
-        # push direction 
-        # assign memory[memoryindexinhex] to be = to something in register[0-2]
-        # starting at memory[244]
-    ]   
-
-
     def handle_PUSH(self, increment, opa):
         self.sp_mem_index -= 1
         self.ram[self.sp_mem_index] = self.reg[opa]  
