@@ -29,6 +29,8 @@ class CPU:
         self.OP_LDI = 0b10000010
         self.OP_PUSH = 0b01000101
         self.OP_POP = 0b01000110
+        self.OP_CALL = 0b0
+        self.OP_RET = 0b0
         self.OP_PRN = 0b01000111
         self.OP_MUL = 0b10100010
         self.OP_HLT = 0b00000001
@@ -38,6 +40,8 @@ class CPU:
         self.dispatchtable[self.OP_LDI] = self.handle_LDI
         self.dispatchtable[self.OP_PUSH] = self.handle_PUSH
         self.dispatchtable[self.OP_POP] = self.handle_POP
+        self.dispatchtable[self.OP_CALL] = self.handle_CALL
+        self.dispatchtable[self.OP_RET] = self.handle_RET
         self.dispatchtable[self.OP_PRN] = self.handle_PRN
         self.dispatchtable[self.OP_MUL] = self.handle_MUL
         self.dispatchtable[self.OP_HLT] = self.handle_HLT
@@ -137,6 +141,12 @@ class CPU:
         self.sp_mem_index += 1
         self.pc += increment
 
+    def handle_CALL(self):
+        pass
+
+    def handle_RET(self):
+        pass
+
     def handle_PRN(self, increment, opa):
         # print(f"Register[{opa}]!!!: ", hex(self.reg[opa]).lstrip("0x"))
         print(f"Register[{opa}]!!!: ", self.reg[opa])
@@ -160,7 +170,7 @@ class CPU:
             operand_a = self.ram_read(self.pc +1)  # address 1   # R0
             operand_b = self.ram_read(self.pc +2)  # address 2   # 8
             
-            # track the instruction length to increment self.pc dynamically.
+            ## Track the instruction length to increment self.pc dynamically.
             # 1. `AND` the Instruction against binary isolator
                 #   Binary Isolator uses a 1 in the location of what you want to keep 
                     # i.e. if instruction or self.ir in this case is 01000111, the 01 at the beginning of the binary value tells us how many arguments and operand values follow in the instruction file(see .ls8 file). So we would use 11000000 then do (01000111 & 11000000) to get the result 0f 01000000 then do step 2
@@ -168,32 +178,49 @@ class CPU:
             # 3. Increment 1 to move to the NEXT instruction
             len_instruct = ((self.ir & 11000000) >> 6) + 1
 
-
-            # LDI
-            if self.ir == self.OP_LDI:
-                self.dispatchtable[self.OP_LDI](len_instruct, operand_a, operand_b)
-
-            # PUSH
-            elif self.ir == self.OP_PUSH:
-                self.dispatchtable[self.OP_PUSH](len_instruct, operand_a)
-
-            # POP
-            elif self.ir == self.OP_POP:
-                self.dispatchtable[self.OP_POP](len_instruct, operand_a)
-
-            #PRN
-            elif self.ir == self.OP_PRN:
-                self.dispatchtable[self.OP_PRN](len_instruct, operand_a)
-            
-            #MUL
-            elif self.ir == self.OP_MUL:
-                self.dispatchtable[self.OP_MUL](len_instruct,operand_a, operand_b)
-
-            # HLT
-            elif self.ir == self.OP_HLT:
-                self.dispatchtable[self.OP_HLT]()
-
+            # Branchtable/Dispatchtable example version...?  Not working as expected.
+            if len_instruct == 3:
+                self.dispatchtable[self.ir](len_instruct, operand_a, operand_b) 
+            elif len_instruct == 2:
+                self.dispatchtable[self.ir](len_instruct, operand_a) 
             else: 
-                print("Unknown Instruction")
-        
+                self.dispatchtable[self.ir]()
+
+            # ## First pass el/if solution - WORKING!
+            # # LDI
+            # if self.ir == self.OP_LDI:
+            #     self.dispatchtable[self.OP_LDI](len_instruct, operand_a, operand_b)
+            
+            # # PUSH
+            # elif self.ir == self.OP_PUSH:
+            #     self.dispatchtable[self.OP_PUSH](len_instruct, operand_a)
+
+            # # POP
+            # elif self.ir == self.OP_POP:
+            #     self.dispatchtable[self.OP_POP](len_instruct, operand_a)
+
+            # # CALL
+            # elif self.ir == self.OP_CALL:
+            #     pass
+
+            # # RET
+            # elif self.ir == self.OP_RET:
+            #     pass
+
+            # # PRN
+            # elif self.ir == self.OP_PRN:
+            #     self.dispatchtable[self.OP_PRN](len_instruct, operand_a)
+            
+            # # MUL
+            # elif self.ir == self.OP_MUL:
+            #     self.dispatchtable[self.OP_MUL](len_instruct,operand_a, operand_b)
+
+            # # HLT
+            # elif self.ir == self.OP_HLT:
+            #     self.dispatchtable[self.OP_HLT]()
+
+            # else: 
+            #     print("Unknown Instruction")
+
+
 
