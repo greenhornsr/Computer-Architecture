@@ -26,27 +26,40 @@ class CPU:
         self.reg[self.sp] = self.ram[self.sp_mem_index]
 
         # Program Machine Codes  #this could be improved.  Probably not ideal to have the Machine codes.
-        self.OP_LDI = 0b10000010 
-        self.OP_PUSH = 0b01000101
-        self.OP_POP = 0b01000110
-        self.OP_CALL = 0b01010000
-        self.OP_RET = 0b00010001
-        self.OP_PRN = 0b01000111
-        self.OP_ADD = 0b10100000
-        self.OP_MUL = 0b10100010
-        self.OP_HLT = 0b00000001
+        # self.OP_LDI = 0b10000010 
+        # self.OP_PUSH = 0b01000101
+        # self.OP_POP = 0b01000110
+        # self.OP_CALL = 0b01010000
+        # self.OP_RET = 0b00010001
+        # self.OP_PRN = 0b01000111
+        # self.OP_ADD = 0b10100000
+        # self.OP_MUL = 0b10100010
+        # self.OP_HLT = 0b00000001
 
         # Dispatch Table - Beautifying RUN  # likely a better way to dynamically do this.
-        self.dispatchtable = {}
-        self.dispatchtable[self.OP_LDI] = self.handle_LDI
-        self.dispatchtable[self.OP_PUSH] = self.handle_PUSH
-        self.dispatchtable[self.OP_POP] = self.handle_POP
-        self.dispatchtable[self.OP_CALL] = self.handle_CALL
-        self.dispatchtable[self.OP_RET] = self.handle_RET
-        self.dispatchtable[self.OP_PRN] = self.handle_PRN
-        self.dispatchtable[self.OP_ADD] = self.handle_ADD
-        self.dispatchtable[self.OP_MUL] = self.handle_MUL
-        self.dispatchtable[self.OP_HLT] = self.handle_HLT
+        # self.dispatchtable = {}
+        # self.dispatchtable[self.OP_LDI] = self.handle_LDI
+        # self.dispatchtable[self.OP_PUSH] = self.handle_PUSH
+        # self.dispatchtable[self.OP_POP] = self.handle_POP
+        # self.dispatchtable[self.OP_CALL] = self.handle_CALL
+        # self.dispatchtable[self.OP_RET] = self.handle_RET
+        # self.dispatchtable[self.OP_PRN] = self.handle_PRN
+        # self.dispatchtable[self.OP_ADD] = self.handle_ADD
+        # self.dispatchtable[self.OP_MUL] = self.handle_MUL
+        # self.dispatchtable[self.OP_HLT] = self.handle_HLT
+        
+        #TEST TABLE
+        self.dispatchtable = {
+            0b10000010 : self.handle_LDI,
+            0b01000101 : self.handle_PUSH,
+            0b01000110 : self.handle_POP,
+            0b01010000 : self.handle_CALL,
+            0b00010001 : self.handle_RET,
+            0b01000111 : self.handle_PRN,
+            0b10100000 : self.handle_ADD,
+            0b10100010 : self.handle_MUL,
+            0b00000001 : self.handle_HLT
+        }
 
     # In `CPU`, add method `ram_read()` and `ram_write()` that access the RAM inside
     # the `CPU` object.
