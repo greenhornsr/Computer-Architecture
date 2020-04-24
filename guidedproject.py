@@ -93,13 +93,12 @@ while running:
     elif inst == CALL: 
         # Compute return address
         return_address = pc +2
-        # push onto the stack
-        # Decrement the stack pointer
-        register[SP-1] -=1
+        # Decrement the stack pointer, push onto the stack
+        register[SP] -=1
         memory[register[SP]] = return_address
 
         # Set the PC to the value in the given register
-        reg_num = memory[pc+1]
+        reg_num = memory[pc+1]  # equivelant to opa
         dest_address = register[reg_num]
 
         pc = dest_address
